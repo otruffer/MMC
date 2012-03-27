@@ -1,0 +1,11 @@
+install maven and m2e (for eclipse)
+
+do:
+mvn compile
+mvn exec:java
+
+for eclipse:
+import project using m2e.
+
+if dependencies are somehow not found use:
+mvn eclipse:eclipse

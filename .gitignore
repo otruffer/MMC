@@ -1,2 +1,2 @@
-src\main\resources\config.properties
+*.properties
 README.txt
