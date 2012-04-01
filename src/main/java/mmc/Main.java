@@ -21,8 +21,12 @@ public class Main {
   /**
    * @param args
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
+    setupTransport();
     
+    GPlusAnalyzer analyzer = new GPlusAnalyzer(plus);
+    
+    System.out.println("Average +1s per activity: "+analyzer.likesPerPost());
   }
   
   /**
