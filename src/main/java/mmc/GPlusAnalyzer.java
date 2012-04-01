@@ -31,6 +31,8 @@ public class GPlusAnalyzer {
     if (posts == 0) {
       return -1;
     }
+    
+    System.out.println(likes+" likes, "+posts+" posts");
 
     return (double) likes / posts;
   }
