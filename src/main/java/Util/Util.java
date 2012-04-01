@@ -1,4 +1,4 @@
-package Util;
+package util;
 /*
  * Copyright (c) 2012 Google Inc.
  *

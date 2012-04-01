@@ -3,8 +3,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import Util.Auth;
-import Util.Util;
+import util.Auth;
+import util.Util;
+
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.http.HttpTransport;
