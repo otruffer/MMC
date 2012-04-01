@@ -1,3 +1,4 @@
+package Util;
 /*
  * Copyright (c) 2012 Google Inc.
  *
@@ -50,10 +51,10 @@ public class Util {
    * @return application configuration properties
    */
   static Properties getConfig() {
-    InputStream input = Util.class.getResourceAsStream("/config.properties");
+    InputStream input = Util.class.getResourceAsStream("/config.properties"); // XXX: returns null
     Properties config = new Properties();
     try {
-      config.load(input);
+      config.load(input); // XXX: java.lang.ExceptionInInitializerError
     } catch (IOException e) {
       System.err.println("Unable to load config file: config.properties");
       System.exit(1);
