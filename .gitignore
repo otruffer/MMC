@@ -1,3 +1,4 @@
 *.properties
 README.txt
 *.class
+*.jar

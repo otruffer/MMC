@@ -44,7 +44,13 @@ public class Util {
   public static final Properties config = getConfig();
   public static final JsonFactory JSON_FACTORY = new GsonFactory();
   public static final HttpTransport TRANSPORT = new NetHttpTransport();
+  public static final boolean SILENT = false;
 
+  public static void write(String s){
+    if(!SILENT){
+      System.out.println(s);
+    }
+  }
   /**
    * Load the configuration file for this application.
    * 
