@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.http.HttpTransport;
@@ -40,9 +42,8 @@ public class Sandbox {
     System.out.println("Image URL: " + profile.getImage().getUrl());
     System.out.println("Profile URL: " + profile.getUrl());
     
-     ActivityFeed feed = plus.activities().list(profile.getId(), "").execute();
+     ActivityFeed feed = plus.activities().list(profile.getId(), "public").execute();
      for (Activity activity : feed.getItems()) {
-
        show(activity);
        System.out.println();
        System.out.println("------------------------------------------------------");
@@ -53,7 +54,14 @@ public class Sandbox {
     System.out.println("id: " + activity.getId());
     System.out.println("url: " + activity.getUrl());
     System.out.println("content: " + activity.getPlusObject().getContent());
-    System.out.println("plus1selflink: " + activity.getPlusObject().getPlusoners().getSelfLink());
-
+    System.out.println("+1: " + activity.getPlusObject().getPlusoners().getTotalItems());
+    Collection<Object> val = activity.getPlusObject().getPlusoners().values();
+    Set<String> keys = activity.getPlusObject().getPlusoners().keySet();
+    for(Object o: val){
+      System.out.println(o.toString());
+    }
+    for(String s: keys){
+      System.out.println(s);
+    }
   }
 }
