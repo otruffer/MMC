@@ -1,3 +1,4 @@
+package util;
 /*
  * Copyright (c) 2012 Google Inc.
  *
@@ -43,17 +44,23 @@ public class Util {
   public static final Properties config = getConfig();
   public static final JsonFactory JSON_FACTORY = new GsonFactory();
   public static final HttpTransport TRANSPORT = new NetHttpTransport();
+  public static final boolean SILENT = false;
 
+  public static void write(String s){
+    if(!SILENT){
+      System.out.println(s);
+    }
+  }
   /**
    * Load the configuration file for this application.
    * 
    * @return application configuration properties
    */
   static Properties getConfig() {
-    InputStream input = Util.class.getResourceAsStream("/config.properties");
+    InputStream input = Util.class.getResourceAsStream("/config.properties"); // XXX: returns null
     Properties config = new Properties();
     try {
-      config.load(input);
+      config.load(input); // XXX: java.lang.ExceptionInInitializerError
     } catch (IOException e) {
       System.err.println("Unable to load config file: config.properties");
       System.exit(1);

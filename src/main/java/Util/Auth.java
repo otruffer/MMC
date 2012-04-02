@@ -1,3 +1,4 @@
+package util;
 /*
  * Copyright (c) 2012 Google Inc.
  * 
@@ -12,13 +13,17 @@
  * the License.
  */
 
+
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
 import com.google.api.client.auth.oauth2.draft10.AuthorizationRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
+import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -90,16 +95,16 @@ public class Auth {
     authorizeUrl.setAccessType("offline");
     authorizeUrl.setApprovalPrompt("force");
 
-    String authorizationUrl = authorizeUrl.build();
+    try {
+      Auth.accessTokenResponse = TokenSerializer.load();
+    } catch (Exception e) {
+      String code = newAuthorization(authorizeUrl);
+      newAccessToken(code);
+      TokenSerializer.serialize(accessTokenResponse); // TODO: Make serializeable wrapper!
+    }
+  }
 
-    // launch in browser
-    System.out.println("Attempting to open a web browser to start the OAuth2 flow");
-    Util.openBrowser(authorizationUrl);
-
-    // request code from user
-    System.out.print("Once you authorize please enter the code here: ");
-    String code = new Scanner(System.in).nextLine();
-
+  private static void newAccessToken(String code) throws IOException {
     // Exchange code for an access token
     Auth.accessTokenResponse = new GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant(
             new NetHttpTransport(),
@@ -109,5 +114,19 @@ public class Auth {
             code,
             REDIRECT_URI
     ).execute();
+  }
+
+  private static String newAuthorization(GoogleAuthorizationRequestUrl authorizeUrl) {
+    String code;
+    String authorizationUrl = authorizeUrl.build();
+
+    // launch in browser
+    System.out.println("Attempting to open a web browser to start the OAuth2 flow");
+    Util.openBrowser(authorizationUrl);
+
+    // request code from user
+    System.out.print("Once you authorize please enter the code here: ");
+    code = new Scanner(System.in).nextLine();
+    return code;
   }
 }

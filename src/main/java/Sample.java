@@ -12,6 +12,7 @@
  * the License.
  */
 
+
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.json.JsonHttpRequest;
@@ -22,6 +23,9 @@ import com.google.api.services.plus.model.*;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
+import util.Auth;
+import util.Util;
 
 /**
  * @author Yaniv Inbar
