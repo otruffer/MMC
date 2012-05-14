@@ -28,7 +28,7 @@ public class Sandbox {
 	public static final String FILENAME = "output.network";
 
 	public static void main(String[] args) throws IOException {
-		//scanAndWrite();
+		// scanAndWrite();
 		read();
 	}
 
@@ -36,13 +36,13 @@ public class Sandbox {
 		Network net = new Network();
 
 		Util.write("reading...");
-		net.load(FILENAME);		
+		net.load(FILENAME);
 		Util.write("read!");
-	    net.write();
-	    Util.write(""+net.getRatio(WHAT));
-	    Util.write(""+net.getReceivedPlus(WHAT));
-	    Util.write(""+net.getSendPlus(WHAT));
-	    Util.write("finished!");
+		net.write();
+		Util.write("" + net.getRatio(WHAT));
+		Util.write("" + net.getReceivedPlus(WHAT));
+		Util.write("" + net.getSendPlus(WHAT));
+		Util.write("finished!");
 	}
 
 	public static void scanAndWrite() throws IOException {

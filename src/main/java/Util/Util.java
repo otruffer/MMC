@@ -57,10 +57,10 @@ public class Util {
    * @return application configuration properties
    */
   static Properties getConfig() {
-    InputStream input = Util.class.getResourceAsStream("/config.properties"); // XXX: returns null
+    InputStream input = Util.class.getResourceAsStream("/config.properties");
     Properties config = new Properties();
     try {
-      config.load(input); // XXX: java.lang.ExceptionInInitializerError
+      config.load(input);
     } catch (IOException e) {
       System.err.println("Unable to load config file: config.properties");
       System.exit(1);

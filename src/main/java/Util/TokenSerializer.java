@@ -14,7 +14,7 @@ public class TokenSerializer {
 		TokenWrapper wrapper = new TokenWrapper(token);
 		
 		try {
-			FileOutputStream fout = new FileOutputStream("./temp/code");
+			FileOutputStream fout = new FileOutputStream("./temp/code.token");
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(wrapper);
 			oos.close();
@@ -25,7 +25,7 @@ public class TokenSerializer {
 
 	public static AccessTokenResponse load() throws IOException,
 			ClassNotFoundException {
-		FileInputStream fin = new FileInputStream("./temp/code");
+		FileInputStream fin = new FileInputStream("./temp/code.token");
 		ObjectInputStream ois = new ObjectInputStream(fin);
 		AccessTokenResponse token = ((TokenWrapper) ois.readObject()).getToken();
 		ois.close();
