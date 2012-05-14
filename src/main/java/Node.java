@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +21,12 @@ import com.google.api.services.plus.model.Person;
  *         This class represents a node in the Plus1 Network. Note that it is empty if you didn't
  *         use crawl().
  */
-public class Node {
-  private String id;
-  private Map<String, Integer> plusOners;
-  private String name;
-  private boolean crawled;
+public class Node implements Serializable{
+
+private String id;
+  Map<String, Integer> plusOners;
+  String name;
+  boolean crawled;
 
   public Node(String id) {
     this.id = id;
@@ -93,4 +95,11 @@ public class Node {
     for(String key: plusOners.keySet())
     Util.write(key + " : " + plusOners.get(key));
   }
+  public String getName() {
+		return name;
+	}
+
+	public boolean isCrawled() {
+		return crawled;
+	}
 }

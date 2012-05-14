@@ -27,7 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.apache.commons.io.FileUtils;
 
 /**
  * Implements OAuth authentication.

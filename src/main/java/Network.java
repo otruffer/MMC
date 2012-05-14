@@ -1,4 +1,9 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,10 +12,12 @@ import java.util.Map;
 import util.Util;
 
 
+
 import com.google.api.services.plus.Plus;
 
 
-public class Network {
+@SuppressWarnings("serial")
+public class Network implements Serializable{
   Map<String, Node> network;
 
   public Network() {
@@ -47,10 +54,9 @@ public class Network {
   public float getSendPlus(String nodeId){
     Node node = network.get(nodeId);
     List<Node> nextNodes = new LinkedList<Node>();
-    for (String s : node.getPlusOners()){
-      //this.put(new Node(s));
+    for (String s : node.getPlusOners())
       nextNodes.add(network.get(s)); 
-    }
+    
     float count = 0;
     for(Node n: nextNodes)
       count += n.getPlus(nodeId);
@@ -74,5 +80,41 @@ public class Network {
       network.get(key).write();
       Util.write("-------------------------------");
     }
+  }
+  
+  public void serialize(String filename){
+		FileOutputStream fos = null;
+		ObjectOutputStream out = null;
+		try {
+			fos = new FileOutputStream(filename);
+			out = new ObjectOutputStream(fos);
+			out.writeObject(this);
+			out.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+  }
+  
+  public void load(String filename){
+		Network net = null;
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+		
+		Util.write("reading object..");
+		try {
+			fis = new FileInputStream(filename);
+			in = new ObjectInputStream(fis);
+			net = (Network) in.readObject();
+			this.network = net.getNetwork();
+			in.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+  }
+  
+  public Map<String, Node> getNetwork(){
+	  return network;
   }
 }
