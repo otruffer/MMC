@@ -2,6 +2,8 @@ package mmc;
 
 import java.io.IOException;
 
+import javax.management.RuntimeErrorException;
+
 import com.google.api.services.plus.Plus;
 import com.google.api.services.plus.Plus.Comments;
 import com.google.api.services.plus.model.Activity;
@@ -11,30 +13,55 @@ import com.google.api.services.plus.model.Person;
 
 public class GPlusAnalyzer {
 
-  private Plus plus;
-  private Person me;
+	private Plus plus;
+	private Person me;
+	private int likes;
+	private int posts;
 
-  public GPlusAnalyzer(Plus plus) throws IOException {
-    this.plus = plus;
-    me = plus.people().get("me").execute();
-  }
+	private boolean crawled;
 
-  public double likesPerPost() throws IOException {
-    ActivityFeed feed = plus.activities().list(me.getId(), "public").execute();
+	public GPlusAnalyzer(Plus plus) throws IOException {
+		this.plus = plus;
+		me = plus.people().get("me").execute();
+		this.crawled = false;
+	}
 
-    int posts = 0, likes = 0;
-    for (Activity activity : feed.getItems()) {
-      posts++;
-      likes += activity.getPlusObject().getPlusoners().size();
-    }
+	public void crawl() throws IOException {
+		ActivityFeed feed = plus.activities().list(me.getId(), "public")
+				.execute();
 
-    if (posts == 0) {
-      return -1;
-    }
-    
-    System.out.println(likes+" likes, "+posts+" posts");
+		int posts = 0, likes = 0;
+		for (Activity activity : feed.getItems()) {
+			posts++;
+			likes += activity.getPlusObject().getPlusoners().size();
+		}
 
-    return (double) likes / posts;
-  }
+		this.likes = likes;
+		this.posts = posts;
+
+		this.crawled = true;
+	}
+
+	private void ensureCrawled() {
+		if (!crawled) {
+			try {
+				this.crawl();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	public int getLikes() {
+		ensureCrawled();
+
+		return this.likes;
+	}
+
+	public int getPosts() {
+		ensureCrawled();
+
+		return this.posts;
+	}
 
 }

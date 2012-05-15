@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import util.Auth;
 import util.Util;
+import view.HtmlPrinter;
+import view.Visualizer;
 
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
@@ -27,7 +29,8 @@ public class Main {
     
     GPlusAnalyzer analyzer = new GPlusAnalyzer(plus);
     
-    System.out.println("Average +1s per activity: "+analyzer.likesPerPost());
+    String html = new Visualizer(analyzer).getHtml();
+    HtmlPrinter.showHtml(html);
   }
   
   /**
