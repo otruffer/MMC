@@ -98,11 +98,7 @@ public class Node implements Serializable {
 	public int getAllSentPlusOnes() {
 		int count = 0;
 		for (Node node : plusOners) {
-			System.out.println("I received (from " + node.name + "): "
-					+ this.getPlusOnesFrom(node.id));
-			System.out.println("I sent (to " + node.name + "): "
-					+ node.getPlusOnesFrom(this.id));
-			node.getPlusOnesFrom(this.id);
+			count += node.getPlusOnesFrom(this.id);
 		}
 		return count;
 	}
