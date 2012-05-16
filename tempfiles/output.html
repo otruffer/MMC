@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html><head><title>Your Google +1 Statistics</title>
 <style type="text/css">
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url('http://themes.googleusercontent.com/font?kit=vzIUHo9z-oJ4WgkpPOtg1_esZW2xOQ-xsNqO47m55DA') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('http://themes.googleusercontent.com/font?kit=RxZJdnzeo3R5zSexge8UUT8E0i7KZn-EPnyo3HZu7kw') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 500;
+  src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url('http://themes.googleusercontent.com/font?kit=OLffGBTaF0XFOW1gnuHF0YbN6UDyHWBl620a-IRfuBk') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Italic'), local('Roboto-Italic'), url('http://themes.googleusercontent.com/font?kit=1pO9eUAp8pSF8VnRTP3xnvesZW2xOQ-xsNqO47m55DA') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url('http://themes.googleusercontent.com/font?kit=2UX7WLTfW3W8TclTUvlFyQ') format('woff');
+}
+
+/* ----- rules ----- */
+
 html, body {
 	background-color: #eee;
+	color: #333;
+	font: 19px/24px Roboto, sans-serif;
+	font-weight: 400;
+	text-shadow: 1pt 1pt 2pt rgba(255, 255, 255, 0.7);
 }
 
 .stat {
 	display: inline-block;
-	padding: 5pt;
+	padding: 10pt;
 	margin: 5pt;
+	box-shadow: 2pt 2pt 5pt 2pt rgba(0,0,0,0.2) inset;
 }
 
 .receiveStat {
