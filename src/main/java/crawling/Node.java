@@ -82,19 +82,27 @@ public class Node implements Serializable {
 		return new LinkedList<String>(this.plusOnersMap.keySet());
 	}
 
-	public int getPlus(String key) {
-		int a;
+	/**
+	 * Gives the number of +1s the person with the specified id (key) gave me.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public int getPlusOnesFrom(String key) {
+		int a = 0;
 		if (plusOnersMap.get(key) != null)
-			a = plusOnersMap.get(key).intValue();
-		else
-			a = 0;
+			a = plusOnersMap.get(key);
 		return a;
 	}
 
 	public int getAllSentPlusOnes() {
 		int count = 0;
 		for (Node node : plusOners) {
-			node.getPlus(this.id);
+			System.out.println("I received (from " + node.name + "): "
+					+ this.getPlusOnesFrom(node.id));
+			System.out.println("I sent (to " + node.name + "): "
+					+ node.getPlusOnesFrom(this.id));
+			node.getPlusOnesFrom(this.id);
 		}
 		return count;
 	}

@@ -13,13 +13,13 @@ import java.util.List;
 import util.Util;
 
 @SuppressWarnings("serial")
-public class Database implements Serializable{
+public class Database implements Serializable {
 	List<Network> networks;
-	
-	
-	public Database(){
+
+	public Database() {
 		this.networks = new LinkedList<Network>();
 	}
+
 	public void load(String filename) {
 		Database data = null;
 		FileInputStream fis = null;
@@ -33,12 +33,12 @@ public class Database implements Serializable{
 			this.networks = data.getNetworks();
 			in.close();
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			 throw new RuntimeException(ex);
 		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
+			System.out.println("Could not read: " + ex.getCause());
 		}
 	}
-	
+
 	public void serialize(String filename) {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
@@ -51,16 +51,16 @@ public class Database implements Serializable{
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return returns a list of network states sorted by timestamp
 	 */
-	public List<Network> getNetworks(){
+	public List<Network> getNetworks() {
 		return networks;
 	}
-	
-	public void addNetwork(Network net){
+
+	public void addNetwork(Network net) {
 		networks.add(net);
 		Collections.sort(networks, new NetworkTimeComparator());
 	}

@@ -1,7 +1,6 @@
 package crawling;
 
 import java.io.IOException;
-import java.util.Date;
 
 import util.Auth;
 import util.Util;
@@ -13,10 +12,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.services.plus.Plus;
-import com.google.api.services.plus.model.Activity;
-import com.google.api.services.plus.model.Person;
 
 public class Main {
 	public static final String WHAT = "me";
@@ -25,10 +21,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// scan data from web
-		// Network net = scanAndWrite();
-
-		// load serialized data
-		Network net = read();
+		 Network net = scanAndWrite();
 
 		Node user = net.get(WHAT);
 		String html = new Visualizer(user).getHtml();

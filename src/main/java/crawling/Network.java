@@ -1,10 +1,6 @@
 package crawling;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,22 +10,20 @@ import java.util.Map;
 
 import util.Util;
 
-import com.google.api.client.util.DateTime;
 import com.google.api.services.plus.Plus;
 
 /**
  * repersents a network in GPLus with crawl possibilities.
  * 
  * @author otruffer
- *
+ * 
  */
-@SuppressWarnings("serial")
 public class Network implements Serializable {
 	Map<String, Node> network;
 	Date timestamp;
 	String center;
 	int depdth;
-	
+
 	public Network() {
 		this.network = new HashMap<String, Node>();
 	}
@@ -60,16 +54,18 @@ public class Network implements Serializable {
 			for (Node n : nextNodes)
 				crawl(n.getId(), depdth - 1, plus);
 
-		node.setPlusOners(this.getPlusReceivers(nodeId));
+		node.setPlusOners(this.getPlusSenders(nodeId));
 		this.timestamp = new Date();
 		this.center = nodeId;
 	}
 
-	private List<Node> getPlusReceivers(String nodeId) {
+	private List<Node> getPlusSenders(String nodeId) {
 		Node node = network.get(nodeId);
 		List<Node> nextNodes = new LinkedList<Node>();
-		for (String s : node.getPlusOners())
-			nextNodes.add(network.get(s));
+		for (String s : node.getPlusOners()) {
+			Node n = network.get(s);
+			nextNodes.add(n);
+		}
 		return nextNodes;
 	}
 
@@ -99,7 +95,7 @@ public class Network implements Serializable {
 	public Map<String, Node> getNetwork() {
 		return network;
 	}
-	
+
 	public Date getTimestamp() {
 		return timestamp;
 	}
