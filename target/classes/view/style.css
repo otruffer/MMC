@@ -1,0 +1,29 @@
+html, body {
+	background-color: #eee;
+}
+
+.stat {
+	display: inline-block;
+	padding: 5pt;
+	margin: 5pt;
+}
+
+.receiveStat {
+	background-color: #7cf;
+}
+
+.sendStat {
+	background-color: #af7;
+}
+
+.scale {
+	border: 1pt solid #555;
+}
+
+.receiveStat .scale {
+	background-color: gold;
+}
+
+.sendStat .scale {
+	background-color: lightBlue;
+}
