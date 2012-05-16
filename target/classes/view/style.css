@@ -43,8 +43,11 @@ html, body {
 	text-shadow: 1pt 1pt 2pt rgba(255, 255, 255, 0.7);
 }
 
-.stat {
+.statWrapper {
 	display: inline-block;
+}
+
+.stat {
 	padding: 10pt;
 	margin: 5pt;
 	box-shadow: 2pt 2pt 5pt 2pt rgba(0,0,0,0.2) inset;
@@ -62,10 +65,6 @@ html, body {
 	border: 1pt solid #555;
 }
 
-.receiveStat .scale {
-	background-color: gold;
-}
-
-.sendStat .scale {
-	background-color: lightBlue;
+.stat .scale {
+	background-color: #ff7;
 }

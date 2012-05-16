@@ -43,26 +43,34 @@ public class Visualizer {
 	}
 
 	private void showPlusStatistics(Tag tag) {
-		createReceivePlusStats(tag);
-		tag.add(Tag.br());
-		createSendPlusStats(tag);
+		int received = user.receivedPlusOnes();
+		int sent = user.getAllSentPlusOnes();
+		float scaleFactor = 0;
+		if (sent > 0 || received > 0) {
+			scaleFactor = (float) MAX_SCALE_SIZE / Math.max(received, sent);
+		}
+
+		Tag statWrapper = new Tag("div", "class=statWrapper");
+		createReceivePlusStats(statWrapper, received, scaleFactor);
+		createSendPlusStats(statWrapper, sent, scaleFactor);
+		tag.add(statWrapper);
 	}
 
-	private void createReceivePlusStats(Tag tag) {
+	private void createReceivePlusStats(Tag tag, int num, float scaleFactor) {
 		Tag received = new Tag("div", "class=\"stat receiveStat\"");
-		received.add("+1s received: " + user.receivedPlusOnes());
-		makeScaleInto(received, user.receivedPlusOnes());
+		received.add("+1s received: " + num);
+		makeScaleInto(received, num * scaleFactor);
 		tag.add(received);
 	}
 
-	private void createSendPlusStats(Tag tag) {
+	private void createSendPlusStats(Tag tag, int num, float scaleFactor) {
 		Tag sent = new Tag("div", "class=\"stat sendStat\"");
-		sent.add("+1s sent: " + user.getAllSentPlusOnes());
-		makeScaleInto(sent, user.getAllSentPlusOnes());
+		sent.add("+1s sent: " + num);
+		makeScaleInto(sent, num * scaleFactor);
 		tag.add(sent);
 	}
 
-	private void makeScaleInto(Tag sent, int number) {
+	private void makeScaleInto(Tag sent, float number) {
 		Tag scale = new Tag("div", "class=scale");
 		scale.addAttribute(new Attribute("style", "padding:2pt 0;width:"
 				+ number + "pt"));

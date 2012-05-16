@@ -24,10 +24,10 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// scan data from web
-//		Network net = scanAndWrite();
+		Network net = scanAndWrite();
 
 		// load serialized data
-		 Network net = read();
+//		 Network net = read();
 
 		Node user = net.get(WHAT);
 		String html = new Visualizer(user).getHtml();
