@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import util.Util;
@@ -15,6 +16,10 @@ import util.Util;
 public class Database implements Serializable{
 	List<Network> networks;
 	
+	
+	public Database(){
+		this.networks = new LinkedList<Network>();
+	}
 	public void load(String filename) {
 		Database data = null;
 		FileInputStream fis = null;

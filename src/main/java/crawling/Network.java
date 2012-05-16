@@ -100,38 +100,6 @@ public class Network implements Serializable {
 		}
 	}
 
-	public void serialize(String filename) {
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(this);
-			out.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public void load(String filename) {
-		Network net = null;
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-
-		Util.write("reading object..");
-		try {
-			fis = new FileInputStream(filename);
-			in = new ObjectInputStream(fis);
-			net = (Network) in.readObject();
-			this.network = net.getNetwork();
-			in.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-	}
-
 	public Map<String, Node> getNetwork() {
 		return network;
 	}
