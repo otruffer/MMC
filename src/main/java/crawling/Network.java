@@ -49,7 +49,7 @@ public class Network implements Serializable {
 			for (Node n : nextNodes)
 				crawl(n.getId(), depdth - 1, plus);
 
-		node.setPlusReceivers(this.getPlusReceivers(nodeId));
+		node.setPlusOners(this.getPlusReceivers(nodeId));
 	}
 
 	private List<Node> getPlusReceivers(String nodeId) {
@@ -61,17 +61,12 @@ public class Network implements Serializable {
 	}
 
 	public int getSentPlus(String nodeId) {
-		List<Node> nextNodes = this.getPlusReceivers(nodeId);
-
-		int count = 0;
-		for (Node n : nextNodes)
-			count += n.getPlus(nodeId);
-		return count;
+		return network.get(nodeId).getAllSentPlusOnes();
 	}
 
 	public int getReceivedPlus(String nodeId) {
 		Node node = network.get(nodeId);
-		return node.getAllSentPlusOnes();
+		return node.receivedPlusOnes();
 	}
 
 	public float getRatio(String nodeId) {

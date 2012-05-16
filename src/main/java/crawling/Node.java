@@ -25,15 +25,15 @@ import com.google.api.services.plus.model.Person;
 public class Node implements Serializable {
 
 	private String id;
-	Map<String, Integer> plusOners;
+	Map<String, Integer> plusOnersMap;
 	String name;
 	boolean crawled;
-	private List<Node> plusReceivers;
+	private List<Node> plusOners;
 
 	public Node(String id) {
 		this.id = id;
 		this.crawled = false;
-		this.plusOners = new HashMap<String, Integer>();
+		this.plusOnersMap = new HashMap<String, Integer>();
 	}
 
 	/**
@@ -66,10 +66,10 @@ public class Node implements Serializable {
 	}
 
 	private void addPlusOne(String id) {
-		if (plusOners.containsKey(id))
-			plusOners.put(id, plusOners.get(id).intValue() + 1);
+		if (plusOnersMap.containsKey(id))
+			plusOnersMap.put(id, plusOnersMap.get(id).intValue() + 1);
 		else
-			plusOners.put(id, 1);
+			plusOnersMap.put(id, 1);
 	}
 
 	public String getId() {
@@ -77,13 +77,13 @@ public class Node implements Serializable {
 	}
 
 	public List<String> getPlusOners() {
-		return new LinkedList<String>(this.plusOners.keySet());
+		return new LinkedList<String>(this.plusOnersMap.keySet());
 	}
 
 	public int getPlus(String key) {
 		int a;
-		if (plusOners.get(key) != null)
-			a = plusOners.get(key).intValue();
+		if (plusOnersMap.get(key) != null)
+			a = plusOnersMap.get(key).intValue();
 		else
 			a = 0;
 		return a;
@@ -91,23 +91,23 @@ public class Node implements Serializable {
 
 	public int getAllSentPlusOnes() {
 		int count = 0;
-		for (Integer i : plusOners.values())
-			count = i + count;
+		for (Node node : plusOners) {
+			node.getPlus(this.id);
+		}
 		return count;
 	}
 
 	public int receivedPlusOnes() {
-		int result = 0;
-		for (Node node : this.plusReceivers) {
-			result += node.getPlus(this.id);
-		}
-		return result;
+		int count = 0;
+		for (Integer i : plusOnersMap.values())
+			count += i;
+		return count;
 	}
 
 	public void write() {
 		Util.write("->" + this.id);
-		for (String key : plusOners.keySet())
-			Util.write(key + " : " + plusOners.get(key));
+		for (String key : plusOnersMap.keySet())
+			Util.write(key + " : " + plusOnersMap.get(key));
 	}
 
 	public String getName() {
@@ -118,7 +118,7 @@ public class Node implements Serializable {
 		return crawled;
 	}
 
-	public void setPlusReceivers(List<Node> plusReceivers) {
-		this.plusReceivers = plusReceivers;
+	public void setPlusOners(List<Node> plusReceivers) {
+		this.plusOners = plusReceivers;
 	}
 }
