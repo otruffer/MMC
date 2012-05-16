@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,12 +14,22 @@ import java.util.Map;
 
 import util.Util;
 
+import com.google.api.client.util.DateTime;
 import com.google.api.services.plus.Plus;
 
+/**
+ * repersents a network in GPLus with crawl possibilities.
+ * 
+ * @author otruffer
+ *
+ */
 @SuppressWarnings("serial")
 public class Network implements Serializable {
 	Map<String, Node> network;
-
+	Date timestamp;
+	String center;
+	int depdth;
+	
 	public Network() {
 		this.network = new HashMap<String, Node>();
 	}
@@ -48,7 +59,8 @@ public class Network implements Serializable {
 		if (depdth != 0)
 			for (Node n : nextNodes)
 				crawl(n.getId(), depdth - 1, plus);
-
+		this.timestamp = new Date();
+		this.center = nodeId;
 		node.setPlusReceivers(this.getPlusReceivers(nodeId));
 	}
 
@@ -122,5 +134,29 @@ public class Network implements Serializable {
 
 	public Map<String, Node> getNetwork() {
 		return network;
+	}
+	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public String getCenter() {
+		return center;
+	}
+
+	public void setCenter(String center) {
+		this.center = center;
+	}
+
+	public int getDepdth() {
+		return depdth;
+	}
+
+	public void setDepdth(int depdth) {
+		this.depdth = depdth;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 }

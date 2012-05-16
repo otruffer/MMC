@@ -22,6 +22,8 @@ import com.google.api.services.plus.model.Person;
  *         This class represents a node in the Plus1 Network. Note that it is
  *         empty if you didn't use crawl().
  */
+
+@SuppressWarnings("serial")
 public class Node implements Serializable {
 
 	private String id;
