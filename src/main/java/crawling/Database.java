@@ -33,7 +33,7 @@ public class Database implements Serializable {
 			this.networks = data.getNetworks();
 			in.close();
 		} catch (IOException ex) {
-			 throw new RuntimeException(ex);
+			System.out.println("Could not read: " + ex.getCause());
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Could not read: " + ex.getCause());
 		}

@@ -1,7 +1,9 @@
 package crawling;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,11 +33,15 @@ public class Node implements Serializable {
 	String name;
 	boolean crawled;
 	private List<Node> plusOners;
+	private Color color;
 
 	public Node(String id) {
 		this.id = id;
 		this.crawled = false;
 		this.plusOnersMap = new HashMap<String, Integer>();
+
+		this.color = new Color(
+				Integer.parseInt(id.substring(id.length() - 9)) * 4);
 	}
 
 	/**
@@ -48,7 +54,8 @@ public class Node implements Serializable {
 			return;
 
 		Person profile = plus.people().get(id).execute();
-		this.name = profile.getNickname();
+		this.name = profile.getName().getGivenName() + " "
+				+ profile.getName().getFamilyName();
 		Util.write("crawling for: " + id + "(" + this.name + ")");
 
 		ActivityFeed feed = plus.activities().list(profile.getId(), "public")
@@ -126,5 +133,9 @@ public class Node implements Serializable {
 
 	public void setPlusOners(List<Node> plusReceivers) {
 		this.plusOners = plusReceivers;
+	}
+
+	public Color getColor() {
+		return this.color;
 	}
 }

@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Color;
+
 import util.FileUtil;
 import crawling.Node;
 import htmlgen.Attribute;
@@ -51,9 +53,18 @@ public class Visualizer {
 		}
 
 		Tag statWrapper = new Tag("div", "class=statWrapper");
+		createNameField(statWrapper);
 		createReceivePlusStats(statWrapper, received, scaleFactor);
 		createSendPlusStats(statWrapper, sent, scaleFactor);
+		statWrapper.addAttribute(new Attribute("style", "background-color:"
+				+ makeStyleColor()));
 		tag.add(statWrapper);
+	}
+
+	private void createNameField(Tag tag) {
+		Tag div = new Tag("div", "class=name");
+		div.add(user.getName());
+		tag.add(div);
 	}
 
 	private void createReceivePlusStats(Tag tag, int num, float scaleFactor) {
@@ -68,6 +79,15 @@ public class Visualizer {
 		sent.add("+1s sent: " + num);
 		makeScaleInto(sent, num * scaleFactor);
 		tag.add(sent);
+	}
+
+	private String makeStyleColor() {
+		Color color = user.getColor();
+		int red = color.getRed();
+		int green = color.getGreen();
+		int blue = color.getBlue();
+		// int alpha = color.getAlpha();
+		return "rgb(" + red + "," + green + "," + blue + ")";
 	}
 
 	private void makeScaleInto(Tag sent, float number) {

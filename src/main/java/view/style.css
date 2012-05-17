@@ -47,6 +47,10 @@ html, body {
 	display: inline-block;
 }
 
+.name {
+	margin: 5pt;
+}
+
 .stat {
 	padding: 10pt;
 	margin: 5pt;
