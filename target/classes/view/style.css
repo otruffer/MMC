@@ -85,6 +85,13 @@ html, body {
 	background-color: #ff7;
 }
 
+.gPlusLogo {
+	position: absolute;
+	top: 10pt;
+	left: 10pt;
+	opacity: 0.7;
+}
+
 ::selection {
 	background-color: #f0a;
 }

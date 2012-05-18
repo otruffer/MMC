@@ -40,6 +40,7 @@ public class Visualizer {
 	}
 
 	private void showPlusStatistics(Tag tag) {
+		tag.add(makeGPlusLogo());
 		tag.add(makeTitle("You:"));
 		new NodeVisualizer(user).renderInto(tag);
 		tag.add(Tag.br());
@@ -47,6 +48,12 @@ public class Visualizer {
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
+	}
+
+	private Tag makeGPlusLogo() {
+		Tag img = new Tag("img", "src=https://ssl.gstatic.com/s2/oz/images/google-logo-plus-0fbe8f0119f4a902429a5991af5db563.png");
+		img.addAttribute(new Attribute("class", "gPlusLogo"));
+		return img;
 	}
 
 	private Tag makeTitle(String string) {
