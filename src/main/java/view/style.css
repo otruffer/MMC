@@ -76,6 +76,10 @@ html, body {
 	background-color: #af7;
 }
 
+.ratioStat {
+	background-color: #ff6;
+}
+
 .scale {
 	border: 1pt solid #555;
 	padding: 2pt 0;
@@ -94,8 +98,10 @@ html, body {
 
 ::selection {
 	background-color: #f0a;
+	color: white;
 }
 
 ::-moz-selection {
 	background-color: #f0a;
+	color: white;
 }

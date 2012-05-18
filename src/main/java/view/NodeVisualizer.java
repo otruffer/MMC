@@ -31,6 +31,9 @@ public class NodeVisualizer {
 		createSendPlusStats(statWrapper, sent, scaleFactor);
 		statWrapper.addAttribute(new Attribute("style", "background-color:"
 				+ makeStyleColor()));
+
+		float ratio = sent == 0 ? 0 : (float) received / sent;
+		createRatioStats(statWrapper, ratio);
 		tag.add(statWrapper);
 	}
 
@@ -42,16 +45,35 @@ public class NodeVisualizer {
 
 	private void createReceivePlusStats(Tag tag, int num, float scaleFactor) {
 		Tag received = new Tag("div", "class=\"stat receiveStat\"");
-		received.add("+1s received: " + num);
+		received.add("+1s received: <b>" + num + "</b>");
 		makeScaleInto(received, num * scaleFactor);
 		tag.add(received);
 	}
 
 	private void createSendPlusStats(Tag tag, int num, float scaleFactor) {
 		Tag sent = new Tag("div", "class=\"stat sendStat\"");
-		sent.add("+1s sent: " + num);
+		sent.add("+1s sent: <b>" + num + "</b>");
 		makeScaleInto(sent, num * scaleFactor);
 		tag.add(sent);
+	}
+
+	private void createRatioStats(Tag tag, float ratio) {
+		Tag ratioStat = new Tag("div", "class=\"stat ratioStat\"");
+		ratioStat.add("Ratio (received/sent): <b>" + round(ratio) + "</b>");
+		ratioStat.add(Tag.br());
+		ratioStat.add("Karma (sent/received): <b>"
+				+ round(ratio == 0 ? 0 : 1 / ratio) + "</b>");
+		tag.add(ratioStat);
+	}
+
+	/**
+	 * Round a float to a maximum of 2 digits after comma.
+	 * 
+	 * @param f
+	 * @return
+	 */
+	private float round(float f) {
+		return (float) Math.round(f * 100) / 100;
 	}
 
 	private String makeStyleColor() {
@@ -65,8 +87,7 @@ public class NodeVisualizer {
 
 	private void makeScaleInto(Tag tag, float number) {
 		Tag scale = new Tag("div", "class=scale");
-		scale.addAttribute(new Attribute("style", ";width:"
-				+ number + "pt"));
+		scale.addAttribute(new Attribute("style", ";width:" + number + "pt"));
 		tag.add(scale);
 	}
 

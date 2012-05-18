@@ -16,7 +16,8 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.Plus;
 
 public class Main {
-	public static final String WHAT = "117755718946845133810";
+	// good example (but slow): 101070876633568994396
+	public static final String WHAT = "113187650697340616399";
 	public static final String FILENAME = "output.network";
 	public static final String DATABASE_FILENAME = "network.db";
 
