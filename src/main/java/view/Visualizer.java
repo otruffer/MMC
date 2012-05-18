@@ -41,7 +41,10 @@ public class Visualizer {
 
 	private void showPlusStatistics(Tag tag) {
 		Tag statWrapper = new Tag("div", "class=statWrapper");
+		tag.add("You:");
 		new NodeVisualizer(user).renderInto(tag);
+		tag.add(Tag.br());
+		tag.add("Your friends:");
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
