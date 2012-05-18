@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,8 +87,12 @@ public class Node implements Serializable {
 		return this.id;
 	}
 
-	public List<String> getPlusOners() {
+	public List<String> getPlusOnerIds() {
 		return new LinkedList<String>(this.plusOnersMap.keySet());
+	}
+
+	public List<Node> getPlusOners() {
+		return Collections.unmodifiableList(plusOners);
 	}
 
 	/**

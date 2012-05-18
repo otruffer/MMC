@@ -5,6 +5,7 @@ import java.io.IOException;
 import util.Auth;
 import util.Util;
 import view.HtmlPrinter;
+import view.NodeVisualizer;
 import view.Visualizer;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
@@ -21,7 +22,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// scan data from web
-		 Network net = scanAndWrite();
+		Network net = scanAndWrite();
 
 		Node user = net.get(WHAT);
 		String html = new Visualizer(user).getHtml();
@@ -56,7 +57,7 @@ public class Main {
 
 		Network net = new Network();
 		net.put(new Node(WHAT));
-		net.crawl(WHAT, 0, plus);
+		net.crawl(WHAT, 1, plus);
 		Database data = new Database();
 		Util.write("importing database");
 		data.load(DATABASE_FILENAME);

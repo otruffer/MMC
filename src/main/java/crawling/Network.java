@@ -43,7 +43,7 @@ public class Network implements Serializable {
 		Node node = network.get(nodeId);
 		node.crawl(plus);
 		List<Node> nextNodes = new LinkedList<Node>();
-		for (String s : node.getPlusOners()) {
+		for (String s : node.getPlusOnerIds()) {
 			this.put(new Node(s));
 			nextNodes.add(network.get(s));
 		}
@@ -62,7 +62,7 @@ public class Network implements Serializable {
 	private List<Node> getPlusSenders(String nodeId) {
 		Node node = network.get(nodeId);
 		List<Node> nextNodes = new LinkedList<Node>();
-		for (String s : node.getPlusOners()) {
+		for (String s : node.getPlusOnerIds()) {
 			Node n = network.get(s);
 			nextNodes.add(n);
 		}
