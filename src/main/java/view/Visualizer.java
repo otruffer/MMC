@@ -48,10 +48,14 @@ public class Visualizer {
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
+		tag.add(makeTitle("Average:"));
+		tag.add(makeAverage());
 	}
 
 	private Tag makeGPlusLogo() {
-		Tag img = new Tag("img", "src=https://ssl.gstatic.com/s2/oz/images/google-logo-plus-0fbe8f0119f4a902429a5991af5db563.png");
+		Tag img = new Tag(
+				"img",
+				"src=https://ssl.gstatic.com/s2/oz/images/google-logo-plus-0fbe8f0119f4a902429a5991af5db563.png");
 		img.addAttribute(new Attribute("class", "gPlusLogo"));
 		return img;
 	}
@@ -60,6 +64,26 @@ public class Visualizer {
 		Tag title = new Tag("h1");
 		title.add(string);
 		return title;
+	}
+
+	private Tag makeAverage() {
+		Tag average = new Tag("div", "class=average");
+		average.add("Average ratio: " + computeAverageRatio());
+		return average;
+	}
+
+	private float computeAverageRatio() {
+		int received = user.receivedPlusOnes();
+		int sent = user.getAllSentPlusOnes();
+		for (Node node : user.getPlusOners()) {
+			received += node.receivedPlusOnes();
+			sent += node.getAllSentPlusOnes();
+		}
+
+		if (received == 0 && sent == 0)
+			return 0;
+
+		return (float) received / sent;
 	}
 
 	public String getHtml() {

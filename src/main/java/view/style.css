@@ -80,6 +80,11 @@ html, body {
 	background-color: #fbf;
 }
 
+.average {
+	background-color: gold;
+	border: 1pt solid white;
+}
+
 .scale {
 	border: 1pt solid #555;
 	padding: 2pt 0;

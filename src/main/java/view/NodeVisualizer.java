@@ -39,7 +39,12 @@ public class NodeVisualizer {
 
 	private void createNameField(Tag tag) {
 		Tag div = new Tag("div", "class=name");
+		Tag arrowLink = new Tag("a", "href=" + user.getProfileURL());
+		arrowLink.addAttribute(new Attribute("target", "_blank"));
+		arrowLink.addAttribute(new Attribute("class", "profileLink"));
+		arrowLink.add("&#8605;");
 		div.add(user.getName());
+		div.add(arrowLink);
 		tag.add(div);
 	}
 

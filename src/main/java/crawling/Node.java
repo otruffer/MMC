@@ -148,7 +148,7 @@ public class Node implements Serializable {
 		return this.color;
 	}
 
-	public String getURL() {
+	public String getProfileURL() {
 		return this.profileURL;
 	}
 }
