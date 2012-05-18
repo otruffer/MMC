@@ -14,6 +14,7 @@ import java.util.Map;
 import util.Util;
 
 import com.google.api.services.plus.Plus;
+import com.google.api.services.plus.Plus.People;
 import com.google.api.services.plus.model.Activity;
 import com.google.api.services.plus.model.ActivityFeed;
 import com.google.api.services.plus.model.PeopleFeed;
@@ -36,6 +37,7 @@ public class Node implements Serializable {
 	boolean crawled;
 	private List<Node> plusOners;
 	private Color color;
+	private String profileURL;
 
 	public Node(String id) {
 		this.id = id;
@@ -58,6 +60,7 @@ public class Node implements Serializable {
 		Person profile = plus.people().get(id).execute();
 		this.name = profile.getName().getGivenName() + " "
 				+ profile.getName().getFamilyName();
+		this.profileURL = profile.getUrl();
 		Util.write("crawling for: " + id + "(" + this.name + ")");
 
 		ActivityFeed feed = plus.activities().list(profile.getId(), "public")
@@ -143,5 +146,9 @@ public class Node implements Serializable {
 
 	public Color getColor() {
 		return this.color;
+	}
+	
+	public String getURL() {
+		return this.profileURL;
 	}
 }

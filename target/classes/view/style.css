@@ -41,10 +41,13 @@ html, body {
 	font: 19px/24px Roboto, sans-serif;
 	font-weight: 400;
 	text-shadow: 1pt 1pt 2pt rgba(255, 255, 255, 0.7);
+	text-align: center;
 }
 
 .statWrapper {
 	display: inline-block;
+	border: 1pt solid black;
+	margin: 5pt;
 }
 
 .name {
@@ -74,8 +77,17 @@ html, body {
 
 .scale {
 	border: 1pt solid #555;
+	padding: 2pt 0;
 }
 
 .stat .scale {
 	background-color: #ff7;
+}
+
+::selection {
+	background-color: #f0a;
+}
+
+::-moz-selection {
+	background-color: #f0a;
 }

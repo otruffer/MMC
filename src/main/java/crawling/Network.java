@@ -2,6 +2,7 @@ package crawling;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class Network implements Serializable {
 	Map<String, Node> network;
 	Date timestamp;
 	String center;
-	int depdth;
+	int depth;
 
 	public Network() {
 		this.network = new HashMap<String, Node>();
@@ -47,16 +48,45 @@ public class Network implements Serializable {
 			this.put(new Node(s));
 			nextNodes.add(network.get(s));
 		}
+		List<Thread> minerThreads = new ArrayList<Thread>();
 		for (Node n : nextNodes) {
-			n.crawl(plus);
+			Thread minerThread = new Thread(new NodeMiner(n, plus));
+			minerThread.run();
+			minerThreads.add(minerThread);
 		}
-		if (depdth != 0)
-			for (Node n : nextNodes)
-				crawl(n.getId(), depdth - 1, plus);
+		waitToFinish(minerThreads);
+
+		if (depdth != 0) {
+			List<Thread> netMinerThreads = new ArrayList<Thread>();
+			for (Node n : nextNodes) {
+				NetworkMiner miner = new NetworkMiner(this, n.getId(),
+						depdth - 1, plus);
+				Thread netMinerThread = new Thread(miner);
+				netMinerThread.run();
+				netMinerThreads.add(netMinerThread);
+			}
+			waitToFinish(netMinerThreads);
+		}
 
 		node.setPlusOners(this.getPlusSenders(nodeId));
 		this.timestamp = new Date();
 		this.center = nodeId;
+	}
+
+	/**
+	 * Take a list of threads and wait until every one of them has finished
+	 * working.
+	 * 
+	 * @param minerThreads
+	 */
+	private void waitToFinish(List<Thread> minerThreads) {
+		for (Thread thread : minerThreads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	private List<Node> getPlusSenders(String nodeId) {
@@ -109,11 +139,11 @@ public class Network implements Serializable {
 	}
 
 	public int getDepdth() {
-		return depdth;
+		return depth;
 	}
 
 	public void setDepdth(int depdth) {
-		this.depdth = depdth;
+		this.depth = depdth;
 	}
 
 	public void setTimestamp(Date timestamp) {

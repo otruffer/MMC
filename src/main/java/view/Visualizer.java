@@ -41,14 +41,20 @@ public class Visualizer {
 
 	private void showPlusStatistics(Tag tag) {
 		Tag statWrapper = new Tag("div", "class=statWrapper");
-		tag.add("You:");
+		tag.add(makeTitle("You:"));
 		new NodeVisualizer(user).renderInto(tag);
 		tag.add(Tag.br());
-		tag.add("Your friends:");
+		tag.add(makeTitle("Your friends:"));
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
 		tag.add(statWrapper);
+	}
+
+	private Tag makeTitle(String string) {
+		Tag title = new Tag("h1");
+		title.add(string);
+		return title;
 	}
 
 	public String getHtml() {
