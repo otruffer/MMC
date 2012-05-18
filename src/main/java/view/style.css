@@ -65,6 +65,7 @@ html, body {
 	margin: 5pt;
 	box-shadow: 2pt 2pt 5pt 2pt rgba(0,0,0,0.2) inset;
 	border-radius: 3pt;
+	text-align: left;
 }
 
 .receiveStat {

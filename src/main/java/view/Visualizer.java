@@ -40,7 +40,6 @@ public class Visualizer {
 	}
 
 	private void showPlusStatistics(Tag tag) {
-		Tag statWrapper = new Tag("div", "class=statWrapper");
 		tag.add(makeTitle("You:"));
 		new NodeVisualizer(user).renderInto(tag);
 		tag.add(Tag.br());
@@ -48,7 +47,6 @@ public class Visualizer {
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
-		tag.add(statWrapper);
 	}
 
 	private Tag makeTitle(String string) {
