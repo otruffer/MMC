@@ -42,6 +42,16 @@ html, body {
 	font-weight: 400;
 	text-shadow: 1pt 1pt 2pt rgba(255, 255, 255, 0.7);
 	text-align: center;
+	margin: 0;
+}
+
+.mainWrapper {
+	position: relative;
+}
+
+.average {
+	background-color: gold;
+	border-bottom: 1pt solid white;
 }
 
 .statWrapper {
@@ -78,11 +88,6 @@ html, body {
 
 .ratioStat {
 	background-color: #fbf;
-}
-
-.average {
-	background-color: gold;
-	border: 1pt solid white;
 }
 
 .scale {

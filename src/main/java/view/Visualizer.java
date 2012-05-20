@@ -35,8 +35,18 @@ public class Visualizer {
 
 	private Object makeBody() {
 		Tag body = new Tag("body");
-		showPlusStatistics(body);
+		// body.add(makeTitle("Average:"));
+		body.add(makeAverage());
+		Tag mainWrapper = new Tag("div", "class=mainWrapper");
+		showPlusStatistics(mainWrapper);
+		body.add(mainWrapper);
 		return body;
+	}
+
+	private Tag makeAverage() {
+		Tag average = new Tag("div", "class=average");
+		average.add("Average ratio: " + computeAverageRatio());
+		return average;
 	}
 
 	private void showPlusStatistics(Tag tag) {
@@ -48,8 +58,6 @@ public class Visualizer {
 		for (Node node : user.getPlusOners()) {
 			new NodeVisualizer(node).renderInto(tag);
 		}
-		tag.add(makeTitle("Average:"));
-		tag.add(makeAverage());
 	}
 
 	private Tag makeGPlusLogo() {
@@ -64,12 +72,6 @@ public class Visualizer {
 		Tag title = new Tag("h1");
 		title.add(string);
 		return title;
-	}
-
-	private Tag makeAverage() {
-		Tag average = new Tag("div", "class=average");
-		average.add("Average ratio: " + computeAverageRatio());
-		return average;
 	}
 
 	private float computeAverageRatio() {
