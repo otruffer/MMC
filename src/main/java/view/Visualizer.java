@@ -44,21 +44,41 @@ public class Visualizer {
 
 	private Tag makeAverage() {
 		Tag average = new Tag("div", "class=average");
-		average.add("Average ratio: <b>" + roundOn2(computeAverageRatio())
-				+ "</b>");
-		average.add(Tag.br());
-		average.add("Average karma: <b>" + roundOn2(computeAverageKarma())
-				+ "</b>");
+		average.add(averageItem("+1s received",
+				roundOn2(computeAverageReceived())));
+		average.add(averageItem("+1s sent", roundOn2(computeAverageSent())));
+		average.add(averageItem("ratio", roundOn2(computeAverageRatio())));
+		average.add(averageItem("karma", roundOn2(computeAverageKarma())));
 		return average;
 	}
 
-	private float computeAverageRatio() {
+	private float computeAverageReceived() {
+		return (float) computeSumReceived() / (user.getPlusOners().size() + 1);
+	}
+
+	private float computeAverageSent() {
+		return (float) computeSumSent() / (user.getPlusOners().size() + 1);
+	}
+
+	private int computeSumReceived() {
 		int received = user.receivedPlusOnes();
-		int sent = user.getAllSentPlusOnes();
 		for (Node node : user.getPlusOners()) {
 			received += node.receivedPlusOnes();
+		}
+		return received;
+	}
+
+	private int computeSumSent() {
+		int sent = user.getAllSentPlusOnes();
+		for (Node node : user.getPlusOners()) {
 			sent += node.getAllSentPlusOnes();
 		}
+		return sent;
+	}
+
+	private float computeAverageRatio() {
+		int received = computeSumReceived();
+		int sent = computeSumSent();
 
 		if (sent == 0)
 			return 0;
@@ -71,6 +91,12 @@ public class Visualizer {
 		if (ratio <= 0)
 			return 0;
 		return 1 / ratio;
+	}
+
+	private Tag averageItem(String key, Object value) {
+		Tag span = new Tag("span", "class=averageItem");
+		span.add("Average " + key + ": <b>" + value + "</b>");
+		return span;
 	}
 
 	/**

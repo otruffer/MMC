@@ -48,7 +48,7 @@ html, body {
 .mainWrapper {
 	position: relative;
 	overflow: hidden;
-	margin-top: 40pt;
+	margin-top: 20pt;
 }
 
 .average {
@@ -59,7 +59,11 @@ html, body {
 	width: 100%;
 	top: 0;
 	z-index: 9999;
-	height: 40pt;
+	height: 20pt;
+}
+
+.averageItem {
+	margin: 0 5pt;
 }
 
 .statWrapper {

@@ -17,6 +17,8 @@ import com.google.api.services.plus.Plus;
 
 public class Main {
 	// good example (but slow): 101070876633568994396
+	// Oskar Truffer: 113187650697340616399
+	// Cedric Reichenbach: 117755718946845133810
 	public static final String WHAT = "113187650697340616399";
 	public static final String FILENAME = "output.network";
 	public static final String DATABASE_FILENAME = "network.db";
