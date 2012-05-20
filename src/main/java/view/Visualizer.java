@@ -35,7 +35,6 @@ public class Visualizer {
 
 	private Object makeBody() {
 		Tag body = new Tag("body");
-		// body.add(makeTitle("Average:"));
 		body.add(makeAverage());
 		Tag mainWrapper = new Tag("div", "class=mainWrapper");
 		showPlusStatistics(mainWrapper);
@@ -45,8 +44,42 @@ public class Visualizer {
 
 	private Tag makeAverage() {
 		Tag average = new Tag("div", "class=average");
-		average.add("Average ratio: " + computeAverageRatio());
+		average.add("Average ratio: <b>" + roundOn2(computeAverageRatio())
+				+ "</b>");
+		average.add(Tag.br());
+		average.add("Average karma: <b>" + roundOn2(computeAverageKarma())
+				+ "</b>");
 		return average;
+	}
+
+	private float computeAverageRatio() {
+		int received = user.receivedPlusOnes();
+		int sent = user.getAllSentPlusOnes();
+		for (Node node : user.getPlusOners()) {
+			received += node.receivedPlusOnes();
+			sent += node.getAllSentPlusOnes();
+		}
+
+		if (sent == 0)
+			return 0;
+
+		return (float) received / sent;
+	}
+
+	private float computeAverageKarma() {
+		float ratio = computeAverageRatio();
+		if (ratio <= 0)
+			return 0;
+		return 1 / ratio;
+	}
+
+	/**
+	 * Round a given float to another with a maximum of 2 digits after comma.
+	 * 
+	 * @return rounded float
+	 */
+	private float roundOn2(float f) {
+		return (float) Math.round(100 * f) / 100;
 	}
 
 	private void showPlusStatistics(Tag tag) {
@@ -72,20 +105,6 @@ public class Visualizer {
 		Tag title = new Tag("h1");
 		title.add(string);
 		return title;
-	}
-
-	private float computeAverageRatio() {
-		int received = user.receivedPlusOnes();
-		int sent = user.getAllSentPlusOnes();
-		for (Node node : user.getPlusOners()) {
-			received += node.receivedPlusOnes();
-			sent += node.getAllSentPlusOnes();
-		}
-
-		if (received == 0 && sent == 0)
-			return 0;
-
-		return (float) received / sent;
 	}
 
 	public String getHtml() {

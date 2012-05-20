@@ -47,11 +47,19 @@ html, body {
 
 .mainWrapper {
 	position: relative;
+	overflow: hidden;
+	margin-top: 40pt;
 }
 
 .average {
 	background-color: gold;
 	border-bottom: 1pt solid white;
+	box-shadow: 0 -2pt 2pt -2pt rgba(0, 0, 0, 0.5) inset;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 9999;
+	height: 40pt;
 }
 
 .statWrapper {
