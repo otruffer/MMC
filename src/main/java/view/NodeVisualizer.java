@@ -30,7 +30,7 @@ public class NodeVisualizer {
 		createReceivePlusStats(statWrapper, received, scaleFactor);
 		createSendPlusStats(statWrapper, sent, scaleFactor);
 		statWrapper.addAttribute(new Attribute("style", "background-color:"
-				+ makeStyleColor()));
+				+ makeStyleColor(user)));
 
 		float ratio = sent == 0 ? 0 : (float) received / sent;
 		createRatioStats(statWrapper, ratio);
@@ -51,14 +51,14 @@ public class NodeVisualizer {
 	private void createReceivePlusStats(Tag tag, int num, float scaleFactor) {
 		Tag received = new Tag("div", "class=\"stat receiveStat\"");
 		received.add("+1s received: <b>" + num + "</b>");
-		makeScaleInto(received, num * scaleFactor);
+		makeScaleInto(received, num * scaleFactor, true);
 		tag.add(received);
 	}
 
 	private void createSendPlusStats(Tag tag, int num, float scaleFactor) {
 		Tag sent = new Tag("div", "class=\"stat sendStat\"");
 		sent.add("+1s sent: <b>" + num + "</b>");
-		makeScaleInto(sent, num * scaleFactor);
+		makeScaleInto(sent, num * scaleFactor, false);
 		tag.add(sent);
 	}
 
@@ -81,8 +81,8 @@ public class NodeVisualizer {
 		return (float) Math.round(f * 100) / 100;
 	}
 
-	private String makeStyleColor() {
-		Color color = user.getColor();
+	private String makeStyleColor(Node node) {
+		Color color = node.getColor();
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
@@ -90,10 +90,23 @@ public class NodeVisualizer {
 		return "rgb(" + red + "," + green + "," + blue + ")";
 	}
 
-	private void makeScaleInto(Tag tag, float number) {
+	private void makeScaleInto(Tag tag, float number, boolean received) {
 		Tag scale = new Tag("div", "class=scale");
-		scale.addAttribute(new Attribute("style", ";width:" + number + "pt"));
+		scale.addAttribute(new Attribute("style", "max-width:" + number + "pt"));
+		for (Node node : user.getPlusOners()) {
+			Tag scalePart = new Tag("div", "class=scalePart");
+			float percentage;
+			if (received) {
+				percentage = (float) user.getPlusOnesFrom(node.getId()) * 100
+						/ user.receivedPlusOnes();
+			} else {
+				percentage = (float) node.getPlusOnesFrom(user.getId()) * 100
+						/ user.getAllSentPlusOnes();
+			}
+			scalePart.addAttribute(new Attribute("style", "width:" + percentage
+					+ "%;background-color:" + makeStyleColor(node)));
+			scale.add(scalePart);
+		}
 		tag.add(scale);
 	}
-
 }

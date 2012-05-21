@@ -104,7 +104,13 @@ html, body {
 
 .scale {
 	border: 1pt solid #555;
-	padding: 2pt 0;
+	height: 4pt;
+	box-shadow: 2pt 2pt 3pt rgba(0, 0, 0, 0.2);
+}
+
+.scalePart {
+	float: left;
+	height: 100%;
 }
 
 .stat .scale {
