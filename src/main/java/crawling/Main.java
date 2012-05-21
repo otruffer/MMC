@@ -19,9 +19,10 @@ public class Main {
 	// good example (but slow): 101070876633568994396
 	// Oskar Truffer: 113187650697340616399
 	// Cedric Reichenbach: 117755718946845133810
-	public static final String WHAT = "113187650697340616399";
+	public static final String WHAT = "100637169752830467862";
 	public static final String FILENAME = "output.network";
 	public static final String DATABASE_FILENAME = "network.db";
+	private static final int DEPTH = 1;
 
 	public static void main(String[] args) throws IOException {
 		// scan data from web
@@ -60,7 +61,7 @@ public class Main {
 
 		Network net = new Network();
 		net.put(new Node(WHAT));
-		net.crawl(WHAT, 1, plus);
+		net.crawl(WHAT, DEPTH, plus);
 		Database data = new Database();
 		Util.write("importing database");
 		data.load(DATABASE_FILENAME);
